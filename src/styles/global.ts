@@ -12,9 +12,11 @@ export default createGlobalStyle`
     background-image: url("https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1370&q=80");
     background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
   }
 
-  body, inpout, button{
+  body, input, button{
     font: 16px Roboto, sans-serif;
   }
 

@@ -6,8 +6,6 @@ export const Title = styled.h1`
   font-size: 25px;
   font-family: sans-serif;
   max-width: 450px;
-
-  margin-top: 80px;
 `;
 
 export const Form = styled.form`
@@ -48,7 +46,7 @@ export const Form = styled.form`
 `;
 
 export const Repositories = styled.div`
-  margin-top: 40px;
+  margin-top: 30px;
   max-width: 700px;
 
   a {
@@ -70,13 +68,7 @@ export const Repositories = styled.div`
     }
 
     & + a{
-      margin-top:16px;
-    }
-
-    img{
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
+      margin-top: 16px;
     }
 
     div{
@@ -94,3 +86,15 @@ export const Repositories = styled.div`
       }
     }
 }`;
+
+export const Corpo = styled.div`
+
+  width: 750px;
+  margin-top: 40px;
+  background-color: #000;
+  border-radius: 5px;
+  padding: 15px 15px 15px 15px;
+
+
+`;
+
