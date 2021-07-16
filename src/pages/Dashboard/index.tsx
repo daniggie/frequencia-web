@@ -1,6 +1,6 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { BsSearch, BsGeoAlt } from 'react-icons/bs';
-
+import { Link } from 'react-router-dom';
 import { string } from 'yargs';
 import api from '../../services/api';
 
@@ -20,7 +20,24 @@ interface Endereco {
 const Dashboard: React.FC = () => {
   const [newEndereco , setNewEndereco] = useState('');
   const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Endereco[]>([]);
+  const [repositories, setRepositories] = useState<Endereco[]>(() => {
+    const storageEndereco = localStorage.getItem(
+      '@EnderecoExplorer:repositories',
+    );
+
+    if(storageEndereco){
+      return JSON.parse(storageEndereco);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      '@EnderecoExplorer:repositories',
+      JSON.stringify(repositories)
+
+      );
+  }, [repositories]);
 
   async function handleAddRepository(
     event: FormEvent<HTMLFormElement>,
@@ -63,13 +80,13 @@ const Dashboard: React.FC = () => {
       <Repositories>
 
       {repositories.map(repository => (
-        <a href="teste">
+        <Link key={repository.cep} to={`/endereco/${repository.cep}`}>
           <BsGeoAlt size={30}/>
           <div>
             <strong>Encontrado: {repository.estado_info.nome} ({repository.estado}) {repository.cep}</strong>
             <p>{repository.cidade} - {repository.bairro} - {repository.logradouro}</p>
           </div>
-        </a>
+        </Link>
       ))}
       </Repositories>
 
