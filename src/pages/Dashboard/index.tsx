@@ -4,7 +4,7 @@ import { BsSearch, BsGeoAlt } from 'react-icons/bs';
 import { string } from 'yargs';
 import api from '../../services/api';
 
-import { Title, Repositories, Form, Corpo } from './style';
+import { Title, Repositories, Form, Corpo, Error } from './style';
 
 interface Endereco {
     bairro: string,
@@ -19,6 +19,7 @@ interface Endereco {
 
 const Dashboard: React.FC = () => {
   const [newEndereco , setNewEndereco] = useState('');
+  const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Endereco[]>([]);
 
   async function handleAddRepository(
@@ -26,11 +27,23 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     event.preventDefault();
 
-    const response = await api.get<Endereco>(`cep/${newEndereco}`);
-    const repository = response.data;
+    if(!newEndereco){
+      setInputError("Campo de busca encontra-se vázio!");
+      return;
+    }
 
-    setRepositories([...repositories, repository]);
-    setNewEndereco('');
+    try{
+
+      const response = await api.get<Endereco>(`cep/${newEndereco}`);
+      const repository = response.data;
+
+      setRepositories([...repositories, repository]);
+      setNewEndereco('');
+      setInputError('');
+
+    } catch(err){
+      setInputError("Endereço não encontrado/inexistente");
+    }
 
   }
 
@@ -40,10 +53,12 @@ const Dashboard: React.FC = () => {
     <div>
       <Title>Pesquise por CEP</Title>
 
-      <Form onSubmit={handleAddRepository}>
+      <Form hasError={Boolean(inputError)} onSubmit={handleAddRepository}>
         <input value={newEndereco} onChange={e => setNewEndereco(e.target.value)} type="text" placeholder="Digite o CEP a ser procurado..."/>
         <button type="submit"><BsSearch size={15}/></button>
       </Form>
+
+      {inputError && <Error>{inputError}</Error>}
 
       <Repositories>
 
