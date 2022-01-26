@@ -81,9 +81,11 @@ const Dashboard: React.FC = () => {
         ))}
         </Repositories>
         <Form>
-          <a href="/atualizar">
-            <button>+ Alunos</button>
-          </a>
+          <button>
+            <a href="/cadastrar">
+              + Alunos
+            </a>
+          </button>
           
           <button>Salvar</button>
         </Form>

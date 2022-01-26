@@ -28,6 +28,11 @@ export const Form = styled.form`
       background: ${shade(0.2, '#6e6e6e')};
     }
 
+    a{
+      text-decoration: none;
+      color: #fff;
+    }
+
   }
 
 `;
