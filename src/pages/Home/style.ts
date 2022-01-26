@@ -7,7 +7,7 @@ interface FormProps {
 
 export const Title = styled.h1`
   color: #fff;
-  font-size: 25px;
+  font-size: 22px;
   font-family: sans-serif;
   max-width: 450px;
 `;

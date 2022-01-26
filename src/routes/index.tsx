@@ -5,8 +5,8 @@ import Home from '../pages/Home';
 
 const Routes: React.FC = () => (
   <Switch>
-  <Route path="/" exact component={Home} />
-  <Route path="/aluno/:repository+" exact component={Atualizar} />
+    <Route path="/" exact component={Home} />
+    <Route path="/aluno/:repository+" exact component={Atualizar} />
   </Switch>
 );
 
