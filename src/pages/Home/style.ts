@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components';
 import { shade } from 'polished';
 
-interface FormProps {
-  hasError: boolean;
-};
-
 export const Title = styled.h1`
   color: #fff;
   font-size: 22px;
@@ -12,37 +8,19 @@ export const Title = styled.h1`
   max-width: 450px;
 `;
 
-export const Form = styled.form<FormProps>`
-  margin-top: 40px;
+export const Form = styled.form`
+  margin-top: 20px;
   max-width: 700px;
   display: flex;
-
-  input {
-    flex: 1;
-    height: 40px;
-    padding: 0 24px;
-    border: 0;
-    border-radius: 5px 0 0 5px;
-    color: #3b3b3b;
-
-    border: 2px solid #fff;
-    ${props => props.hasError && css`
-      border-color: #c53030;
-    `}
-
-    &::placeholder {
-      color: #a8a8b3;
-    }
-  }
-
+  justify-content: space-between;
   button {
-    width: 50px;
-    heigth: 35px;
+    width: 120px;
+    height: 40px;
     background: #6e6e6e;
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px;
     border: 0;
     color: #fff;
-    font-size: 12px;
+    font-size: 15px;
 
     transition: background-color 0.2s;
 
@@ -58,7 +36,7 @@ export const Repositories = styled.div`
   margin-top: 30px;
   max-width: 700px;
 
-  a {
+  .name {
     background: #fff;
     border-radius: 5px;
     width: 100%;
@@ -66,21 +44,23 @@ export const Repositories = styled.div`
     display: block;
     text-decoration: none;
     margin-top: 4px;
+    cursor: default;
 
     display: flex;
     align-items: center;
 
     div{
-      margin: 0 16px;
-
-      strong {
-        font-size: 15px;
-        color: #3d3d4d;
-      }
+      width: 100%;
+      margin: 0 10px;
+      display:flex;
+      align-items: center;
+      justify-content: space-between;
 
       p {
-        font-size: 12px;
+        font-size: 14px;
         color: #303030;
+        display:flex;
+        align-items: flex-start;
       }
     }
 }`;
@@ -89,7 +69,7 @@ export const Corpo = styled.div`
 
   width: 750px;
   margin-top: 40px;
-  background-color: #000;
+  background-color: #3ba873;
   border-radius: 5px;
   padding: 15px 15px 15px 15px;
 

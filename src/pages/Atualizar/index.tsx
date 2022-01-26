@@ -12,9 +12,7 @@ const Endereco: React.FC = () => {
 
   return (
     <Corpo>
-      <h1>Endereco: { params.repository }</h1>
-      <a href="https://www.google.com/maps/@-26.5121247,-49.1180915,13z"><p> Informations </p></a>
-
+      
     </Corpo>
   );
 };

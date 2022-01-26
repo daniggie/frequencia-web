@@ -1,17 +1,19 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link } from 'react-router-dom';
 import { string } from 'yargs';
 import api from '../../services/api';
+import { TiPencil } from "react-icons/ti";
 
 import { Title, Repositories, Form, Corpo, Error } from './style';
 
-interface Aluno {
-    nome: string,
+interface Endereco {
+    cidade: string,
+    cep: string;
 }
 
 const Dashboard: React.FC = () => {
+  const [newEndereco , setNewEndereco] = useState('');
   const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Aluno[]>(() => {
+  const [repositories, setRepositories] = useState<Endereco[]>(() => {
     const storageEndereco = localStorage.getItem(
       '@EnderecoExplorer:repositories',
     );
@@ -35,34 +37,61 @@ const Dashboard: React.FC = () => {
   ): Promise<void> {
     event.preventDefault();
 
-      const response = await api.get<Aluno>(`/aluno`);
+    if(!newEndereco){
+      setInputError("Campo de busca encontra-se vázio!");
+      return;
+    }
+
+    try{
+
+      const response = await api.get<Endereco>(`cep/${newEndereco}`);
       const repository = response.data;
 
       setRepositories([...repositories, repository]);
+      setNewEndereco('');
       setInputError('');
+
+    } catch(err){
+      setInputError("Endereço não encontrado/inexistente");
+    }
 
   }
 
   return (
-
+<>
     <Corpo>
-    <div>
-      <Title>Alunos</Title>
+      <div>
+        <Title>Marque a presença dos alunos</Title>
 
-      <Repositories>
+        <Repositories>
+        {repositories.map(repository => (
+          <div className='name'>
+            <div>              
+              <p> 
+                <a href="/atualizar">
+                  <TiPencil size={14} color='#000' cursor="pointer"/>
+                </a>
+                
+                {repository.cidade}
+              </p>
 
-      {repositories.map(repository => (
-        <Link key={repository.nome} to={`/`}>
-          <div>
-            <p>{repository.nome}</p>
+              <input type="checkbox"></input>
+            </div>
           </div>
-        </Link>
-      ))}
-      </Repositories>
-
-    </div>
+        ))}
+        </Repositories>
+        <Form>
+          <a href="/atualizar">
+            <button>+ Alunos</button>
+          </a>
+          
+          <button>Salvar</button>
+        </Form>
+      </div>
     </Corpo>
+</>
   );
+  
 };
 
 export default Dashboard;
