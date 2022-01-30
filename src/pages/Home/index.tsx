@@ -29,9 +29,6 @@ const Home: React.FC = () => {
 
   listaAlunos();
 
-  console.log(alunos);
-
-
   return (
 <>
     <Corpo>
