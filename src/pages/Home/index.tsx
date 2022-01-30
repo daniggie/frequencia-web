@@ -4,58 +4,33 @@ import api from '../../services/api';
 import { TiPencil } from "react-icons/ti";
 
 import { Title, Repositories, Form, Corpo, Error } from './style';
+import { config } from 'process';
 
-interface Endereco {
-    cidade: string,
-    cep: string;
+interface Aluno {
+    nome: string,
 }
 
-const Dashboard: React.FC = () => {
-  const [newEndereco , setNewEndereco] = useState('');
-  const [inputError, setInputError] = useState('');
-  const [repositories, setRepositories] = useState<Endereco[]>(() => {
-    const storageEndereco = localStorage.getItem(
-      '@EnderecoExplorer:repositories',
-    );
-
-    if(storageEndereco){
-      return JSON.parse(storageEndereco);
-    }
+const Home: React.FC = () => {
+  const [alunos, setAlunos] = useState<Aluno[]>(() => {
     return [];
   });
 
-  useEffect(() => {
-    localStorage.setItem(
-      '@EnderecoExplorer:repositories',
-      JSON.stringify(repositories)
-
-      );
-  }, [repositories]);
+  async function listaAlunos(): Promise<void> {
+    await api.get(`alunos/`).then(response => {
+      setAlunos(response.data)
+    })
+  }
 
   async function handleAddRepository(
     event: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
-
-    if(!newEndereco){
-      setInputError("Campo de busca encontra-se vázio!");
-      return;
-    }
-
-    try{
-
-      const response = await api.get<Endereco>(`cep/${newEndereco}`);
-      const repository = response.data;
-
-      setRepositories([...repositories, repository]);
-      setNewEndereco('');
-      setInputError('');
-
-    } catch(err){
-      setInputError("Endereço não encontrado/inexistente");
-    }
-
   }
+
+  listaAlunos();
+
+  console.log(alunos);
+
 
   return (
 <>
@@ -64,15 +39,14 @@ const Dashboard: React.FC = () => {
         <Title>Marque a presença dos alunos</Title>
 
         <Repositories>
-        {repositories.map(repository => (
+        {alunos.map(alunos => (
           <div className='name'>
-            <div>              
-              <p> 
+            <div>
+              <p>
                 <a href="/atualizar">
                   <TiPencil size={14} color='#000' cursor="pointer"/>
                 </a>
-                
-                {repository.cidade}
+                {alunos.nome}
               </p>
 
               <input type="checkbox"></input>
@@ -86,14 +60,14 @@ const Dashboard: React.FC = () => {
               + Alunos
             </a>
           </button>
-          
+
           <button>Salvar</button>
         </Form>
       </div>
     </Corpo>
 </>
   );
-  
+
 };
 
-export default Dashboard;
+export default Home;

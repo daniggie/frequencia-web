@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://api.postmon.com.br/v1/',
+  baseURL: "http://localhost:8585",
 });
 
 export default api;
