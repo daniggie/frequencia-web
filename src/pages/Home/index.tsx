@@ -1,12 +1,11 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { string } from 'yargs';
 import api from '../../services/api';
 import { TiPencil } from "react-icons/ti";
-
-import { Title, Repositories, Form, Corpo, Error } from './style';
-import { config } from 'process';
+import { Title, Repositories, Form, Corpo } from './style';
+import { Link } from 'react-router-dom';
 
 interface Aluno {
+    id: number,
     nome: string,
 }
 
@@ -15,19 +14,11 @@ const Home: React.FC = () => {
     return [];
   });
 
-  async function listaAlunos(): Promise<void> {
-    await api.get(`alunos/`).then(response => {
+  useEffect(()=>{
+    api.get(`alunos/`).then(response => {
       setAlunos(response.data)
     })
-  }
-
-  async function handleAddRepository(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
-  }
-
-  listaAlunos();
+  }, []);
 
   return (
 <>
@@ -36,14 +27,14 @@ const Home: React.FC = () => {
         <Title>Marque a presença dos alunos</Title>
 
         <Repositories>
-        {alunos.map(alunos => (
+        {alunos.map(aluno => (
           <div className='name'>
             <div>
               <p>
-                <a href="/atualizar">
+                <Link to={`/atualizar/${aluno.nome}`}>
                   <TiPencil size={14} color='#000' cursor="pointer"/>
-                </a>
-                {alunos.nome}
+                </Link>
+                {aluno.nome}
               </p>
 
               <input type="checkbox"></input>

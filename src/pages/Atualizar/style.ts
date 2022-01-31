@@ -45,7 +45,6 @@ export const Form = styled.form`
   }
   button {
     width: 50px;
-    heigth: 35px;
     background: #6e6e6e;
     border-radius: 0 5px 5px 0;
     border: 0;
