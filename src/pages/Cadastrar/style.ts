@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { shade } from 'polished';
+import { Form } from '@unform/web';
 
 
 export const Title = styled.h1`
@@ -27,7 +28,7 @@ p{
 }
 `;
 
-export const Form = styled.form`
+export const Forms = styled(Form)`
   margin-top: 10px;
   max-width: 700px;
   display: flex;
