@@ -27,7 +27,7 @@ p{
 }
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   margin-top: 10px;
   max-width: 700px;
   display: flex;

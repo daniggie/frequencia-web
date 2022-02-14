@@ -8,7 +8,7 @@ export const Title = styled.h1`
   max-width: 450px;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   margin-top: 20px;
   max-width: 700px;
   display: flex;
